@@ -1,0 +1,23 @@
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background: black;
+}
+.container{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.keys{
+    height: 70vh;
+    width: 14.28vh;
+    background-color: white;
+    border: 3px solid #000;
+    cursor: pointer;
+}
