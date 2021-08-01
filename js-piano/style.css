@@ -3,7 +3,9 @@
     padding: 0;
     box-sizing: border-box;
 }
-
+:root{
+    --left: 11vh;
+}
 body{
     background: black;
 }
@@ -15,9 +17,17 @@ body{
 
 }
 .keys{
+    display: flex;
     height: 70vh;
     width: 14.28vh;
     background-color: white;
     border: 3px solid #000;
     cursor: pointer;
+}
+.black-keys {
+    height: 250px;
+    width: 50px;
+    background:black;
+    position: relative;
+    left: var(--left)
 }

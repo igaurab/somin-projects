@@ -15,6 +15,20 @@ const dha1 = document.querySelector('#dha')
 const ni1 = document.querySelector('#ni')
 
 
+const sa2 = document.querySelector('.sa')
+const re2 = document.querySelector('.re')
+const ma2 = document.querySelector('.ma')
+const pa2 = document.querySelector('.pa')
+const dha2 = document.querySelector('.dha')
+
+
+const Db = document.querySelector('#Db')
+const Ab  = document.querySelector('#Ab') 
+const Eb  = document.querySelector('#Eb') 
+const Gb = document.querySelector('#Gb')
+const Bb = document.querySelector('#Bb')
+
+
 
 sa.addEventListener('click' , () =>{
     sa1.play()
