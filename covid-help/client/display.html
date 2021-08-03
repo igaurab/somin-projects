@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display Posts</title>
+    <style>
+        body{
+    background-color: black;
+    color: white;
+}
+
+#container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+div{
+    margin-top: 2vh;
+}
+
+#header-title{
+    color: red;
+}
+.main-div{
+    border: 3px solid #fff;
+    width: 100%;
+}
+.main-btn{
+    padding: 10px;
+    font-size: 1rem;
+    position: absolute;
+    right: 0;
+    top: 50vh;
+    cursor: pointer;
+}
+.main-btn:hover{
+    background-color: #f1f1f1;
+}
+.text{
+    display: block;
+    margin: 30px;
+    padding: 5px;
+    font-size: 1rem;
+}
+
+    </style>
+</head>
+<body>
+    <h1 id="header-title"></h1>
+    <form action="" method="post">
+        Enter the author
+        <input type="text"  class="text author"> 
+        Enter the help you need
+        <input type="text"   class="text help">
+        Enter your message
+        <input type="text"   class="text message">
+    </form>
+
+    <button class="main-btn">Create Post</button>
+<div id="container">
+    
+</div>
+</body>
+<script>
+    const container = document.getElementById("container")
+    const h1 = document.getElementById('header-title')
+    
+    function urlParams(name){
+        var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+    if (results == null){
+        return null;
+    }
+    else {
+        return decodeURI(results[1]) || 0;
+    }
+}
+
+var loc = urlParams("location")
+console.log(loc)
+h1.innerHTML = `<h1>Posts for ${loc}</h1>`
+api_url = `http://localhost:8000/data/${loc}` 
+fetch(api_url)
+.then(res => res.json())
+.then(res => {
+    const arr1 = res.map((looping) =>{
+        const div = document.createElement('div')
+        
+        const author = document.createElement("div")
+        author.innerHTML = `<strong>Author</strong>: ${looping.author}`
+        div.setAttribute('class' , 'main-div')
+        div.appendChild(author)
+        
+        const help = document.createElement("div")
+        help.innerHTML = `<strong>Help</strong>: ${looping.help}`
+        div.appendChild(help)
+        
+        container.appendChild(div)
+        const message = document.createElement("div")
+        message.innerHTML = `<strong>Message</strong>: ${looping.message}`
+        div.appendChild(message)
+
+})
+        
+    const author = document.querySelector('.author')
+    const help = document.querySelector('.help')
+    const msg = document.querySelector('.message')
+    const mainBtn = document.querySelector('.main-btn')
+    mainBtn.addEventListener('click' , () =>{
+        authorText = author.value
+        helpText = help.value
+        msgText = msg.value
+        locationText = loc
+        console.log(authorText);
+        fetch("http://localhost:8000/data/create/", {
+            method: "post",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+
+            //make sure to serialize your JSON body
+            body: JSON.stringify({
+                location: locationText,
+                author: authorText,
+                help: helpText,
+                message: msgText
+            })
+
+        })
+        .then( (response) => { 
+            //do something awesome that makes the world a better place
+            (response.json())
+            .then(resp =>{
+                // res = resp[loc]
+
+                
+            })
+        });
+
+    })
+
+// console.log(arr1);
+// const h2 = document.createElement('h1')
+// h2.innerHTML = `<h2></h2>`
+})
+</script>
+</html>
